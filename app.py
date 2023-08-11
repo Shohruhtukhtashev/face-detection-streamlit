@@ -42,8 +42,10 @@ with tab1:
                     # Read a frame from the video
                     success, frame = vf.read()
                     frc = frame.copy()
+                    if frc == 'NoneType':
+                        break
 
-                    if success:
+                    elif success:
                         # Run YOLOv8 tracking on the frame, persisting tracks between frames
                         for box in model.track(frame, persist=True)[0].boxes:
                             if box.conf<0.5:
@@ -61,5 +63,3 @@ with tab1:
                             cv2.putText(frame,f"id: {id}",(int(x1),int(y1)-15),cv2.FONT_HERSHEY_SIMPLEX,0.7,(255,255,255),2)
                             # Display the annotated frame
                         stframe.image(frame, channels="BGR", width=700)
-                    else:
-                        break
