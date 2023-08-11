@@ -42,7 +42,7 @@ with tab1:
                     # Read a frame from the video
                     success, frame = vf.read()
                     frc = frame.copy()
-                    if frc == 'NoneType':
+                    if frc == NoneType:
                         break
 
                     elif success:
