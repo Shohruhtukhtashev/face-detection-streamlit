@@ -2,6 +2,5 @@ opencv-python-headless==4.8.0.74
 streamlit==1.25.0
 ultralytics==8.0.149
 opencv-python
-opencv_contrib_python
-lap==0.4.0 
-numpy lap
+opencv_contrib_python 
+lapx
