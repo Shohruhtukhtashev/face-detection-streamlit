@@ -3,4 +3,4 @@ streamlit==1.25.0
 ultralytics==8.0.149
 opencv-python
 opencv_contrib_python
-lap
+lap==0.4.0 
