@@ -41,25 +41,26 @@ with tab1:
                 while vf.isOpened():
                     # Read a frame from the video
                     success, frame = vf.read()
-                    frc = frame.copy()
-                    if frc == NoneType:
-                        break
-
-                    elif success:
-                        # Run YOLOv8 tracking on the frame, persisting tracks between frames
-                        for box in model.track(frame, persist=True)[0].boxes:
-                            if box.conf<0.5:
-                                continue
-
-                            x1,y1,x2,y2 = map(int, box.xyxy[0])
-                            id = int(box.id) if box.id else 0
-                            if id>idn:
-                                idn = id
-                                cols[x%n].image(cv2.resize(frc[y1:y2, x1:x2], (100,100)), channels="BGR", caption=str(x+1))
-                                x += 1
-                                example.image(cv2.resize(frc[y1:y2, x1:x2], (150,150)), channels="BGR", caption=str(float(box.conf)*100)[:4]+"%")
-                            
-                            cv2.rectangle(frame,(x1,y1),(x2,y2),(0,255,0),3)
-                            cv2.putText(frame,f"id: {id}",(int(x1),int(y1)-15),cv2.FONT_HERSHEY_SIMPLEX,0.7,(255,255,255),2)
-                            # Display the annotated frame
-                        stframe.image(frame, channels="BGR", width=700)
+                    try:
+                        frc = frame.copy()
+        
+                        if success:
+                            # Run YOLOv8 tracking on the frame, persisting tracks between frames
+                            for box in model.track(frame, persist=True)[0].boxes:
+                                if box.conf<0.5:
+                                    continue
+        
+                                x1,y1,x2,y2 = map(int, box.xyxy[0])
+                                id = int(box.id) if box.id else 0
+                                if id>idn:
+                                    idn = id
+                                    cols[x%n].image(cv2.resize(frc[y1:y2, x1:x2], (100,100)), channels="BGR", caption=str(x+1))
+                                    x += 1
+                                    example.image(cv2.resize(frc[y1:y2, x1:x2], (150,150)), channels="BGR", caption=str(float(box.conf)*100)[:4]+"%")
+                                
+                                cv2.rectangle(frame,(x1,y1),(x2,y2),(0,255,0),3)
+                                cv2.putText(frame,f"id: {id}",(int(x1),int(y1)-15),cv2.FONT_HERSHEY_SIMPLEX,0.7,(255,255,255),2)
+                                # Display the annotated frame
+                            stframe.image(frame, channels="BGR", width=700)
+                        except:
+                            st.write('Content is over')
