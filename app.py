@@ -62,5 +62,5 @@ with tab1:
                                 cv2.putText(frame,f"id: {id}",(int(x1),int(y1)-15),cv2.FONT_HERSHEY_SIMPLEX,0.7,(255,255,255),2)
                                 # Display the annotated frame
                             stframe.image(frame, channels="BGR", width=700)
-                    except NoneType:
+                    except NameError:
                         st.write('Content is over')
